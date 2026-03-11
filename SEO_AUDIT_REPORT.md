@@ -1,8 +1,8 @@
 # SEO Audit Report - Etisalat by e& Project
 
-**Date:** 2025-01-XX  
-**Project:** du-project-final  
-**Website:** https://www.duconnect.ae
+**Date:** 2026-03-11  
+**Project:** etisalat-project-final  
+**Website:** https://www.etisalaconnect.ae
 
 ---
 
@@ -55,7 +55,7 @@
 ### 1. **Missing H1 Tags**
 - ❌ **CRITICAL:** `index.html` has TWO H1 tags (lines 253-254):
   - `<h1>Home Internet</h1>`
-  - `<h1>Get 35% off on select Power Plans.</h1>`
+  - `<h1>Get 35% off on select Etisalat Plans.</h1>`
   - **Recommendation:** Only ONE H1 per page. Merge or restructure.
 
 - ❌ **CRITICAL:** `index_corp.html` - Need to verify H1 presence

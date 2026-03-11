@@ -1120,9 +1120,36 @@
         } else {
             startCountdown();
         }
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbw80N81Dqw02iTepynpfdTGbdBLpaHWJcC0aDgUjZwyg_LXbcksDu0YqHSRQJUIuCY/exec';
 
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
 
+                const data = {
+                    name: (form.querySelector('#name') || form.querySelector('#Name') || form.querySelector('#CName') || {}).value || '',
+                    email: (form.querySelector('#email') || form.querySelector('#CEmail') || {}).value || '',
+                    phone: (form.querySelector('#phone') || form.querySelector('#Phone') || form.querySelector('#CPhone') || {}).value || '',
+                    message: (form.querySelector('#message') || form.querySelector('#CMessage') || {}).value || '',
+                    service: (form.querySelector('#service') || {}).value || '',
+                    formId: form.id
+                };
 
+                fetch(scriptURL, {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.text())
+                    .then(result => {
+                        alert("Form submitted successfully!");
+                        form.reset();
+                    })
+                    .catch(error => {
+                        alert("Error submitting form.");
+                        console.error('Error!', error.message);
+                    });
+            });
+        });
 
 
     </script>

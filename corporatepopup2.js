@@ -47,30 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Google Apps Script URL for form submission
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbylweQ4MOgU0ToBYfuQpw1bX61OO8r6Fd5X10RstPpsqb0xzaqmIEr5ZqoF6pK5ADjt/exec'; // Replace with your Apps Script Web App URL
 
-    document.getElementById('popupcorpForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const data = {
-            CName: document.getElementById('CName').value,
-            CPhone: document.getElementById('CPhone').value,
-        };
-
-        fetch(scriptURL, {
-            method: 'POST',
-            body: JSON.stringify(data)
-        })
-            .then(response => response.text())
-            .then(result => {
-                alert("Form submitted successfully!");
-                document.getElementById('contact-form').reset();
-            })
-            .catch(error => {
-                alert("Error submitting form.");
-                console.error('Error!', error.message);
-            });
-    });
+    // Form submission is now handled globally in the HTML files to ensure unified data capture to Google Sheets.
 
 
 

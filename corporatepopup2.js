@@ -1,51 +1,21 @@
 // Welcome Popup Functionality
 document.addEventListener('DOMContentLoaded', function () {
     const popup = document.getElementById('welcomePopup');
-    const closeBtn = document.querySelector('.popup-close');
-    const form = document.getElementById('popupcorpForm');
-    const response = document.getElementById('popupResponse');
+    
+    // Show popup immediately if not already submitted
+    showPopup();
 
-    // Show popup after a delay (3 seconds)
-    setTimeout(() => {
-        showPopup();
-    }, 3000);
-
-    // Show popup function
     function showPopup() {
-        // Check if popup was already shown in this session
-        if (sessionStorage.getItem('popupShown')) {
+        // Check if form was submitted (persistent across sessions)
+        if (localStorage.getItem('formSubmitted')) {
             return;
         }
 
         popup.classList.add('show');
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
-
-        // Mark popup as shown in this session
-        sessionStorage.setItem('popupShown', 'true');
+        document.body.style.overflow = 'hidden'; 
     }
 
-    // Close popup function
-    function closePopup() {
-        popup.classList.remove('show');
-        document.body.style.overflow = ''; // Restore scrolling
-    }
-
-    // Close popup when clicking the close button
-    closeBtn.addEventListener('click', closePopup);
-
-    // Close popup when clicking outside the container
-    popup.addEventListener('click', function (e) {
-        if (e.target === popup) {
-            closePopup();
-        }
-    });
-
-    // Close popup with Escape key
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && popup.classList.contains('show')) {
-            closePopup();
-        }
-    });
+    // Closing mechanisms removed for mandatory requirement
 
 
     // Form submission is now handled globally in the HTML files to ensure unified data capture to Google Sheets.

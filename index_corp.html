@@ -956,7 +956,7 @@
     <!-- Welcome Popup Modal -->
     <div id="welcomePopup" class="popup-overlay">
         <div class="popup-container">
-            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <!-- Close button removed to make popup mandatory -->
 
             <div class="popup-content">
                 <div class="popup-header">
@@ -2257,15 +2257,21 @@
                     method: 'POST',
                     body: JSON.stringify(data)
                 })
-                    .then(response => response.text())
-                    .then(result => {
-                        alert("Form submitted successfully!");
-                        form.reset();
-                    })
-                    .catch(error => {
-                        alert("Error submitting form.");
-                        console.error('Error!', error.message);
-                    });
+                .then(response => response.text())
+                .then(result => {
+                    alert("Form submitted successfully!");
+                    localStorage.setItem('formSubmitted', 'true');
+                    const popup = document.getElementById('welcomePopup');
+                    if (popup) {
+                        popup.classList.remove('show');
+                        document.body.style.overflow = '';
+                    }
+                    form.reset();
+                })
+                .catch(error => {
+                    alert("Error submitting form.");
+                    console.error('Error!', error.message);
+                });
             });
         });
 

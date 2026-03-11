@@ -153,6 +153,70 @@
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
+    <!-- Welcome Popup Modal -->
+    <div id="welcomePopup" class="popup-overlay">
+        <div class="popup-container">
+            <!-- Close button removed to make popup mandatory -->
+
+            <div class="popup-content">
+                <div class="popup-header">
+                    <div class="gift-box-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="20" width="50" height="35" rx="3" fill="url(#giftGradient)" stroke="#fff"
+                                stroke-width="2" />
+                            <rect x="25" y="5" width="10" height="50" fill="#ff6b6b" stroke="#fff" stroke-width="2" />
+                            <rect x="5" y="25" width="50" height="10" fill="#ff6b6b" stroke="#fff" stroke-width="2" />
+                            <path d="M20 20C20 15 25 10 30 15C35 10 40 15 40 20" stroke="#fff" stroke-width="2"
+                                fill="none" />
+                            <defs>
+                                <linearGradient id="giftGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#e2001a" />
+                                    <stop offset="100%" style="stop-color:#9b0012" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h2>🎁 Exclusive Etisalat by e& Offers!</h2>
+                    <h3>Get Your Best Internet Deal Today</h3>
+                    <p>Limited time offers on fiber & 5G internet plans. Free installation included!</p>
+                    <p class="popup-promo">Wireless Plan: <strong>AED 159 Only</strong> | Fiber Plans: <strong>30%
+                            Discount</strong> — <small>Limited time only!</small></p>
+
+                </div>
+
+                <form class="popup-form" id="popupContactForm">
+                    <div class="form-group">
+                        <input type="text" id="Name" name="Name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="Phone" name="Phone" placeholder="Phone Number" required>
+                    </div>
+
+                    <button type="submit" class="popup-submit-btn">
+                        <span>🎯 Get My Best Offer Now!</span>
+                    </button>
+
+                    <div class="popup-benefits">
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✅</span>
+                            <span>Free Installation</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✅</span>
+                            <span>24/7 Support</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✅</span>
+                            <span>Best Price Guarantee</span>
+                        </div>
+                    </div>
+                </form>
+
+                <p class="popup-response" id="popupResponse"></p>
+            </div>
+        </div>
+    </div>
+
     <header role="banner">
         <nav class="main-nav" role="navigation" aria-label="Main navigation">
             <div class="nav-container">
@@ -924,6 +988,45 @@
         <img src="img/etisalat.png" alt="help" class="etisalat-help-logo">
         <span>Need Help?</span>
     </div>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbznQqqa_SrZ2xCTWsIEL1wZdx_KKLWq34NA5pFh-LlxhOPJVOqwtWwnnBOXsC2xG_nV/exec';
+
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                
+                const data = {
+                    name: (form.querySelector('#name') || form.querySelector('#Name') || form.querySelector('#CName') || {}).value || '',
+                    email: (form.querySelector('#email') || form.querySelector('#CEmail') || {}).value || '',
+                    phone: (form.querySelector('#phone') || form.querySelector('#Phone') || form.querySelector('#CPhone') || {}).value || '',
+                    message: (form.querySelector('#message') || form.querySelector('#CMessage') || {}).value || '',
+                    service: (form.querySelector('#service') || {}).value || '',
+                    formId: form.id
+                };
+
+                fetch(scriptURL, {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.text())
+                .then(result => {
+                    alert("Form submitted successfully!");
+                    localStorage.setItem('formSubmitted', 'true');
+                    const popup = document.getElementById('welcomePopup');
+                    if (popup) {
+                        popup.classList.remove('show');
+                        document.body.style.overflow = '';
+                    }
+                    form.reset();
+                })
+                .catch(error => {
+                    alert("Error submitting form.");
+                    console.error('Error!', error.message);
+                });
+            });
+        });
+    </script>
+    <script src="popup.js"></script>
 </body>
 
 </html>
